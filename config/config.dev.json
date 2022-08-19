@@ -22,7 +22,7 @@
         "statusName": "status"
     },
     "db": {
-        "url": "167.172.181.48",
+        "url": "46.101.247.215",
         "port": 27017,
         "username": "adminuser2",
         "password": "Sentinel.123",
