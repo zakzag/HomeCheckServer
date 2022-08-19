@@ -88,8 +88,11 @@ class TMQTTBroker extends TInjectable(TObservable(TBaseMQTTBroker)) implements I
                 connectTimeout: 5000,
             }
 
+            Debug.detail(`Host: ${this._config.url}:${this._config.port}`);
+
             if (this._config.username && this._config.password) {
-                Debug.detail("MQTT user/password provided, using authentication for login");
+                Debug.detail(`MQTT user/password provided, using authentication for login`);
+                Debug.detail(`User: ${this._config.username}, password:${this._config.password}`);
                 options.username = this._config.username;
                 options.password = this._config.password;
             }

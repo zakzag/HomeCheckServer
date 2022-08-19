@@ -15,7 +15,6 @@
         "start": "ts-node ./src/index.ts %NODE_DEBUG_OPTION%",
         "start:dev": "nodemon %NODE_DEBUG_OPTION%",
         "init": "ts-node ./src/scripts/init.ts",
-        "createmockdb": "ts-node ./src/scripts/createMockDB.ts",
         "mockserver": "ts-node ./src/mock/server.ts",
         "mockserver:dev": "ts-node ./src/mock/server.ts",
         "client": "ts-node ./src/mock/client/client.ts",

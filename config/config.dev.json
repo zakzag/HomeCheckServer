@@ -15,7 +15,7 @@
         "url": "46.101.247.215",
         "port": "1883",
         "username": "hcs-home",
-        "password": "sentinel123",
+        "password": "Sentinel.123",
         "clientId": "MSHS-Server",
         "rootTopic": "~homeID",
         "actionName": "action",
