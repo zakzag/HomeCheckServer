@@ -9,7 +9,7 @@
     },
     "engines": {
         "node": "^16.13.2",
-        "npm": "^8.1.2"
+        "npm": "^8.18.0"
     },
     "scripts": {
         "start": "ts-node ./src/index.ts %NODE_DEBUG_OPTION%",

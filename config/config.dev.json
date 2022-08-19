@@ -12,7 +12,7 @@
     },
     "messageBroker": {
         "type": "mqtt",
-        "url": "localhost",
+        "url": "46.101.247.215",
         "port": "1883",
         "username": "hcs-home",
         "password": "sentinel123",
@@ -22,7 +22,7 @@
         "statusName": "status"
     },
     "db": {
-        "url": "localhost",
+        "url": "167.172.181.48",
         "port": 27017,
         "username": "adminuser2",
         "password": "Sentinel.123",
