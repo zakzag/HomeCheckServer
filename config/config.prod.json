@@ -1,0 +1,36 @@
+{
+    "extends": "default",
+    "homeID": "mshs-home",
+    "log": {
+        "logdir": "log",
+        "name": "app",
+        "level": 5,
+        "maxSize": 10000000,
+        "fileLog": true,
+        "consoleLog": true,
+        "consoleLogLevel": 5
+    },
+    "messageBroker": {
+        "type": "mqtt",
+        "url": "localhost",
+        "port": "1883",
+        "username": "hcs-home",
+        "password": "Sentinel.123",
+        "clientId": "HC-Server",
+        "rootTopic": "~homeID",
+        "actionName": "action",
+        "statusName": "status"
+    },
+    "db": {
+        "type": "mongodb",
+        "url": "localhost",
+        "port": 27017,
+        "username": "mshsclient",
+        "password": "mshserror",
+        "database": "~homeID"
+    },
+    "webApi": {
+        "port": 8100,
+        "homeID": "~homeID"
+    }
+}

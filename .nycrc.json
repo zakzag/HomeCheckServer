@@ -1,0 +1,23 @@
+{
+    "extends": "@istanbuljs/nyc-config-typescript",
+    "all": true,
+    "exclude": [
+        "src/test/**/*.ts",
+        "src/mock/**/*.ts",
+        "src/**/*.spec.ts",
+        "src/**/*Schema.ts",
+        "src/scripts/**/*.ts",
+        "src/service/db/DBConnectionBase.ts",
+        "src/util/IntegrationTestUtil.ts",
+        "src/util/NodePrinter.ts",
+        "src/util/TextFormatter.ts",
+        "src/util/TestHelper.ts",
+        "src/util/TimeConstants.ts"
+
+    ],
+    "include": [
+        "**/*.ts"
+    ],
+    "reporter": "lcov",
+    "report-dir": "./.coverage"
+}

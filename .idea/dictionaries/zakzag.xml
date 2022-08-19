@@ -1,0 +1,31 @@
+<component name="ProjectDictionaryState">
+  <dictionary name="zakzag">
+    <words>
+      <w>adminuser</w>
+      <w>datameta</w>
+<<<<<<< HEAD
+=======
+      <w>firmwareversion</w>
+>>>>>>> feature/HCS-56-api
+      <w>getparams</w>
+      <w>gosleep</w>
+      <w>homecheck</w>
+      <w>isdp</w>
+      <w>kovari</w>
+      <w>logdir</w>
+<<<<<<< HEAD
+      <w>onadd</w>
+      <w>onremove</w>
+=======
+      <w>nodelist</w>
+      <w>nodemanager</w>
+>>>>>>> feature/HCS-56-api
+      <w>runtypes</w>
+      <w>setmode</w>
+      <w>statehistory</w>
+      <w>tslint</w>
+      <w>wateringstation</w>
+      <w>weatherstation</w>
+    </words>
+  </dictionary>
+</component>

@@ -1,0 +1,43 @@
+{
+    "extends": "default",
+    "homeID": "hcs-test",
+    "log": {
+        "logdir": "log",
+        "name": "int-test",
+        "level": 1,
+        "maxSize": 10000000,
+        "fileLog": true,
+        "consoleLog": true,
+        "consoleLogLevel": 1
+    },
+    "messageBroker": {
+        "type": "mqtt",
+        "url": "localhost",
+        "port": "1883",
+        "username": "hcs-home",
+        "password": "sentinel123",
+        "clientId": "HC-Int-Server",
+        "rootTopic": "~homeID",
+        "actionName": "action",
+        "statusName": "status"
+    },
+    "db": {
+        "type": "mongodb",
+        "url": "localhost",
+        "port": 27017,
+        "username": "adminuser2",
+        "password": "Sentinel.123",
+        "database": "~homeID"
+    },
+    "webApi": {
+        "port": 8100,
+        "homeID": "~homeID"
+    },
+    "client": {
+        "url": "ws://localhost",
+        "port": 8100,
+        "reconnectionDelay": 500,
+        "reconnectionAttempts": 0,
+        "homeID": "~homeID"
+    }
+}

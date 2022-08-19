@@ -1,0 +1,35 @@
+{
+    "_comment": "this file is a skeleton for all config files, it contains all the nodes needed to run HS Server. No other config entry is supported.",
+    "homeID": "hcs-home",
+    "log": {
+        "level": "0: No logging, 1: fatal errors, 2: all errors, 3: warnings, 4: logs, 5: infos, 6: detailed log",
+        "logdir": "<path to the log dir>",
+        "maxSize": "<maximum size of the log dir in MB, if it!s more, old logs will be removed, 0=infinite size>",
+        "fileLog": "<if true, log messages will be stored in a file>",
+        "consoleLogLevel": "same as level but only applied to console log messages",
+        "consoleLog": "<if true logging will be displayed on screen>"
+    },
+    "messageBroker": {
+        "type": "<message server type, for now, only mqtt is supported>",
+        "url": "<valid URL of the message server, most of the time, it's localhost>",
+        "port": "<port where the message server is listening, default for mqtt is: 1883>",
+        "username": "hcs-home",
+        "password": "Sentinel.123",
+        "clientId": "<a unique name of the HC Server>",
+        "rootTopic": "<root node of the message broker, all path will contain it>",
+        "actionName": "<name of the action nodes>",
+        "statusName": "<name of status nodes>"
+    },
+    "db": {
+        "type": "<type of the database, for now only mongodb is supported>",
+        "url": "<valid URL to the db server, most of the time it's localhost>",
+        "port": "<default port is 27017>",
+        "username": "<db user that has r/w access to the specified resources>",
+        "password": "<db user password>",
+        "database": "<home ID>"
+    }, 
+    "webApi": {
+        "port": 8100,
+        "homeID": "~homeID"
+    }
+}

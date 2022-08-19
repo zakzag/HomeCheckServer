@@ -1,0 +1,16 @@
+# In order to have a fully function server and development environment, you need to 
+## Install Software
+* SonarQube 	>8.2.0
+* SonarScanner 	>4.2.0
+* Node.js 	>12.10
+* MongoDB 	>4.2
+* Mosquitto 	>1.6.8
+* Git 		>2.14.1
+The versions above make sure, that installation won't break anything. It's possible that earlier versions
+won't break either, but it was never tested.
+
+## Run local_install.bat/sh in order to install global npm packages
+* typescript 	>3.8.3
+* ts-node 	>8.6.2
+
+## Recommended IDE: Microsoft Visual Studio Code

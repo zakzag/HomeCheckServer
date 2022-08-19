@@ -1,0 +1,23 @@
+Topics for HomeCheck
+
+Device to Server:
+
+	info message topic:
+	<homeId>/<device UID>/status/info
+
+	state message topic:
+	<homeId>/<device UID>/status/state
+
+	online status message topic:
+	<homeId>/<device UID>/status/online
+
+	offline status message topic:
+	<homeId>/<device UID>/status/offline
+
+Server to Device:
+
+	command topic:
+	<homeId>/<device UID>/command/#
+
+	broadcast command topic
+	<homeId>/device/command/#

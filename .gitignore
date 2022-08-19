@@ -1,0 +1,8 @@
+.nyc_output
+.scannerwork
+.idea/sonarlint/
+.coverage/
+/node_modules
+build
+src/.vscode/settings.json
+.idea/workspace.xml

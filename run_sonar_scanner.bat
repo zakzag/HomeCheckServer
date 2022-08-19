@@ -1,0 +1,1 @@
+sonar-scanner.bat -D"sonar.projectKey=HomeCheck-Server" -D"sonar.sources=./src" -D"sonar.host.url=http://localhost:9000" -D"sonar.login=844a6a2c84e9962950160117578a98c85b4c2107" -Dsonar.typescript.lcov.reportPaths=.coverage/lcov.info

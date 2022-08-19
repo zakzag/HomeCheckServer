@@ -1,0 +1,15 @@
+{
+  "meta": {
+    "requestId": "1122-2212323132-2113"
+  },
+  "data": {
+    "command":"get-state",
+    "params": [{
+      "name": "s1.ena",
+      "value": "1"
+    },{
+      "name": "s2.ena",
+      "value": "0"
+    }]
+  }
+}

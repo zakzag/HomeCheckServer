@@ -1,0 +1,21 @@
+download sonarqube binary zip from web
+exp to c:\Prog\SonarQube\Sonar-xxxxxx\
+
+create a new env variable SONAR_HOME, set it to the dir above: c:\Prog\SonarQube\Sonar-xxxxxx\
+create a new database in mssql called "sonar"
+edit sonar.conf, set...
+
+set local database, for easy use
+
+run in cmd:
+sc create SonarQube binPath= "\"%SONAR_HOME%\bin\windows-x86-64\wrapper.exe\" -s \"%SONAR_HOME%\conf\wrapper.conf\""
+
+to start server as service by running
+
+"%SONAR_HOME%\bin\windows-x86-64\StartNTService.bat"
+
+stop it with
+
+"%SONAR_HOME%\bin\windows-x86-64\StartNTService.bat"
+
+if error happens, check logs in "%SONAR_HOME%\logs"

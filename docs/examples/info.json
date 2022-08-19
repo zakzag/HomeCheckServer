@@ -1,0 +1,25 @@
+{
+  "meta": {
+    "requestId": "1122-2212323132-2113",
+    "uid": "11:22:33:44"
+  },
+  "data": {
+    "info": {
+      "uid": "11:22:33:44",
+      "name": "name",
+      "type": "wateringstation",
+      "status": "WORK",
+      "firmwareVersion": "1.1.2",
+      "params": [
+        {
+          "name": "param1",
+          "value": "12"
+        }, 
+        {
+          "name": "param2",
+          "value": "23"
+        }
+      ]
+    }
+  }
+}

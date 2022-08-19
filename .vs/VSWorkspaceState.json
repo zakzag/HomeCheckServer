@@ -1,0 +1,11 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\src",
+    "\\src\\device",
+    "\\src\\device\\NuclearRadiationDetector",
+    "\\src\\device\\WateringStation"
+  ],
+  "SelectedNode": "\\src\\index.ts",
+  "PreviewInSolutionExplorer": false
+}

@@ -1,0 +1,26 @@
+Device Props:
+{
+	uid: 43:4e:5e:aa:12,			< remote
+	name: "Watering station 1",		< local
+	type: "wateringstation",		< local
+	firmwareVersion: "1.0.1",		< remote
+	createdAt: 1678327898,			< database
+	lastUpdate: 1588712893			< database
+}
+
+
+Device State:
+{
+	timestamp: 15878920392
+	status: {
+		errorCode: "sensorError",
+		errorReason: "Waterlevel2 sensor provides invalid data",
+		status: "WORK"
+	}
+	traits: [
+		{
+			name: "waterlevel1",
+			value: 133
+		}
+	]
+}

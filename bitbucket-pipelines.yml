@@ -1,0 +1,80 @@
+# This is a sample build configuration for JavaScript.
+# Check our guides at https://confluence.atlassian.com/x/14UWN for more examples.
+# Only use spaces to indent your .yml configuration.
+# -----
+# You can specify a custom docker image from Docker Hub as your build environment.
+image: node:16.13.2
+pipelines:
+  branches:
+    prod:
+      - step:
+          name: Build and Test
+          deployment: production
+          caches:
+            - node
+          script:
+            - npm install -g ts-node typescript
+            - npm install
+            - npm test
+            - tsc
+            - tar --exclude deploy_prod.sh --exclude artifact/build-artifact.tar.gz --exclude .git --exclude .vscode --exclude docs --exclude .gitignore --exclude README.md --exclude bitbucket-pipleines.yml -zcvf artifact/build-artifact.tar.gz .
+            - echo "$BITBUCKET_BUILD_NUMBER" >> artifact/build-number.txt
+            - echo -e "Branch $BITBUCKET_BRANCH\nCommit $BITBUCKET_COMMIT\nRepo $BITBUCKET_GIT_HTTP_ORIGIN\nProject $BITBUCKET_PROJECT_KEY" >> artifact/build-info.txt
+          artifacts:
+            - artifact/**
+      - step:
+          name: Deploy to DigitalOcean homecheck-prod
+          script:
+            - echo "USER $DEPLOY_USER"
+            - pipe: atlassian/sftp-deploy:0.5.3
+              variables:
+                USER: 'deployer'
+                DEBUG: 'true'
+                SERVER: '167.172.181.48'
+                REMOTE_PATH: 'upload/'
+                LOCAL_PATH: './artifact/*'
+                SSH_KEY: 'LS0tLS1CRUdJTiBSU0EgUFJJVkFURSBLRVktLS0tLQpNSUlFb1FJQkFBS0NBUUVBa3RrUTBSd1R0cW4venBMRzdrMGNwQ1czZXFMLy91WFFPS0lxMll2QVoxZCtzeDVaClI5WDdHbFh6V2ZIbWNDdXhtVEdKdXV6VjI4Qms1aDVjMUhXYWoycDdsTk8wU3hPUS9jREtGRXBoblRWem9zQzEKOUdlWjNoTXllL0Uyb1lDc1FHVCtHMU5TRlZYRXN4L3Nnb3Nqb1dNbzZXeHdpT3RGMDNmTlJWWEVjMEZyT3k2bQpaRE5PTDBWYmR0dTdqcWEvRGF6Ukp4UXNwQVhPOS9kSXlabTZsRUh6bWIzT2ZWcnlsdnF1MW5WVFZQYkhabUdrCm1xbHpYY2NBMGhYUjZITkJEYXdGVzg2OXdXN2lPNEZVb3NCSkU4V0E5dWhua3FhODRqd084VGlqQU5GQWcvWHUKdkhPdXJnQWxoZXdzSmlldzhyaVRValhkaStmOWhpUEJCNHYrandJQkpRS0NBUUJYVUtJM0pYT0JYaWxtRWhWcgpHUmZ5NWY1a21FVXZ4dXFDaWUvMitTWkxTTWZnSCtJUENadzVMQy9VbmF1Y3BGdkMzeTlNak5Jdm90UTF6TjFBCkRwTkFoSURWQ0VHd0dYak9PMGU1Q2FIVEdOejQvUGFSVWx0OUlDdmEvaUI3dEVxK2dUMGxBUndNcjRtMm5Wd3gKOGQzVmxPZmt2UVNrY0RkYkpLT1JBcEI3NE0yOXdya1RmVmRIVWxSaVlEemJ6cDI3aEFNRUtLMGRSekxPZDR3YgpGOEpUdFZjVXpOYTZPanRPeE11TlgxQWRoalIrRGhZMEtxZURpSmhrT3NBa01jM2liZzZ1c0EzS2QvUkFVSGxBCnN6ZGdWMUJ6Q1RDZXBVcUIwZjYyNnJ1TjU2OWwyR004UzJNbjhhb0NhV3FyZUxvcDNSQnJxdVJmUHFqWk5zMFoKZXgvTkFvR0JBTlY1YmpjelN0VUd0YzI3UkN2U0YvT3FWY2pPbW43SkhxVWQ1TzQxUThKOFdtUVMzcjJmcGRhcQpsV3VyazlhUGFZRTlJNzZ6a0N1NWlDblVwYTMwREx5dnNmM29VQ2JNMkFwdzZGRzNRekJMUXRsUWxqZnZyZjhVCldraDdIY04zUEFYZ0YrV3J4OWJ1SUxyWURkS0p1VWFwRmVPS2VwamxuMjlZdGppQ2tGZTNBb0dCQUxBWjRheEsKVDlxOFAwV2h4eWxpSjZyV2hLWXVrbHdwcVpvNUEzcVZVT3R6MlgwU2IwcWtnYmd0dlRLbDJIWUlRdGFiRHU4YgpBQmFrSHUzM3g0TzNoeDU0YjNwaytXaDlLakZlYnNLaGxZRjM3ODdrMmdER3REVGNSbXVJU2tjRHB0bDRsUVVUCi9vSnhEc3pCRmNrZTlOUWFnRm43WWExTDZzOUx2K25DMngvcEFvR0FITmtPNU4xcStqRlcxcHpFQmV2MVpoM3YKNnJRaXR5L3ZZbXZTMUJVSktCNmtibU5xTlV6czVhaFpZWk82Q0R6a3ZuQUx2OU1UZTRmR1N0ZU1Bc0FkWlpzegp1b2N0YlFic3d5UUR1QVFDS1I3dFc2TWJOLzNMWjZqTjdoNTVwTXJzYjM4bDB1MnpPTGhsU2E1K2FJOG00QWtDCjlUdzZGS2xva29HY0ZYbHRjNk1DZ1lBT1IwbW1MNG52SkFVaFVrNXJJNkpaOWJlNmNucVIyZDFSc1poL2o1RHcKZndQTDN1WnQxZnl1RVl2aGd4R05CNWEzZEZzb0pNaW40OHNvRFN2YVAxQWxFSzhYd3Y5M0xMNDdXcThJM0t0QgoyVXJMbGdQV2pLYlQyb0pBRWZndlJYdzdKWFBkMFRCUHcvcEg4L3JZOUt3Uk1wVEpCb3RoRS81SUtMeUlrMEl6CkJRS0JnUUM5eGxhVHh3VTdYK1JqUEJRek5WS3FPeWswOXhWcy9mZ1pJcEh4UWJrakRaZ292Tk02VFRjaVZxUFEKTTgxTUxkZTlKVTZSLzZvOVdHbHE1WFRrUzhqeklrd1ppdi9jL2ZoOFFBUGNjdllUY1FTWkNKcXltZTN6UXc0bwp5QlVCMWpGZnlMZllKRDBmcUI4QzRrcWlISmNwU1Q4WjkxUHo5cmw5bVNtU2JKeWRtZz09Ci0tLS0tRU5EIFJTQSBQUklWQVRFIEtFWS0tLS0tIA=='
+      - step:
+          name: Run deploy script
+          script:
+            - echo "$DEPLOY_SSH_PRIVATE_KEY" | base64 -d >> deploy_ssh_private_key.ppk
+            - chmod 600 deploy_ssh_private_key.ppk
+            - ssh deployer@167.172.181.48 -i deploy_ssh_private_key.ppk chmod 711 /www/upload/deploy_prod.sh
+            - ssh deployer@167.172.181.48 -i deploy_ssh_private_key.ppk bash /www/upload/deploy_prod.sh
+            - rm deploy_ssh_private_key.ppk
+    dev:
+      - step:
+          name: Build and Test
+          deployment: staging
+          caches:
+            - node
+          script:
+            - npm install -g ts-node typescript
+            - npm install
+            - npm test
+            - tsc
+            - tar --exclude deploy_prod.sh --exclude artifact/build-artifact.tar.gz --exclude .git --exclude .vscode --exclude docs --exclude .gitignore --exclude README.md --exclude bitbucket-pipleines.yml -zcvf artifact/build-artifact.tar.gz .
+            - echo "$BITBUCKET_BUILD_NUMBER" >> artifact/build-number.txt
+            - echo -e "Branch $BITBUCKET_BRANCH\nCommit $BITBUCKET_COMMIT\nRepo $BITBUCKET_GIT_HTTP_ORIGIN\nProject $BITBUCKET_PROJECT_KEY" >> artifact/build-info.txt
+          artifacts:
+            - artifact/**
+      - step:
+          name: Deploy to DigitalOcean homecheck-dev
+          script:
+            - echo "USER $DEPLOY_USER"
+            - pipe: atlassian/sftp-deploy:0.5.3
+              variables:
+                USER: 'deployer'
+                DEBUG: 'true'
+                SERVER: '46.101.247.215'
+                REMOTE_PATH: 'upload/'
+                LOCAL_PATH: './artifact/*'
+                SSH_KEY: 'LS0tLS1CRUdJTiBSU0EgUFJJVkFURSBLRVktLS0tLQpNSUlFb1FJQkFBS0NBUUVBa3RrUTBSd1R0cW4venBMRzdrMGNwQ1czZXFMLy91WFFPS0lxMll2QVoxZCtzeDVaClI5WDdHbFh6V2ZIbWNDdXhtVEdKdXV6VjI4Qms1aDVjMUhXYWoycDdsTk8wU3hPUS9jREtGRXBoblRWem9zQzEKOUdlWjNoTXllL0Uyb1lDc1FHVCtHMU5TRlZYRXN4L3Nnb3Nqb1dNbzZXeHdpT3RGMDNmTlJWWEVjMEZyT3k2bQpaRE5PTDBWYmR0dTdqcWEvRGF6Ukp4UXNwQVhPOS9kSXlabTZsRUh6bWIzT2ZWcnlsdnF1MW5WVFZQYkhabUdrCm1xbHpYY2NBMGhYUjZITkJEYXdGVzg2OXdXN2lPNEZVb3NCSkU4V0E5dWhua3FhODRqd084VGlqQU5GQWcvWHUKdkhPdXJnQWxoZXdzSmlldzhyaVRValhkaStmOWhpUEJCNHYrandJQkpRS0NBUUJYVUtJM0pYT0JYaWxtRWhWcgpHUmZ5NWY1a21FVXZ4dXFDaWUvMitTWkxTTWZnSCtJUENadzVMQy9VbmF1Y3BGdkMzeTlNak5Jdm90UTF6TjFBCkRwTkFoSURWQ0VHd0dYak9PMGU1Q2FIVEdOejQvUGFSVWx0OUlDdmEvaUI3dEVxK2dUMGxBUndNcjRtMm5Wd3gKOGQzVmxPZmt2UVNrY0RkYkpLT1JBcEI3NE0yOXdya1RmVmRIVWxSaVlEemJ6cDI3aEFNRUtLMGRSekxPZDR3YgpGOEpUdFZjVXpOYTZPanRPeE11TlgxQWRoalIrRGhZMEtxZURpSmhrT3NBa01jM2liZzZ1c0EzS2QvUkFVSGxBCnN6ZGdWMUJ6Q1RDZXBVcUIwZjYyNnJ1TjU2OWwyR004UzJNbjhhb0NhV3FyZUxvcDNSQnJxdVJmUHFqWk5zMFoKZXgvTkFvR0JBTlY1YmpjelN0VUd0YzI3UkN2U0YvT3FWY2pPbW43SkhxVWQ1TzQxUThKOFdtUVMzcjJmcGRhcQpsV3VyazlhUGFZRTlJNzZ6a0N1NWlDblVwYTMwREx5dnNmM29VQ2JNMkFwdzZGRzNRekJMUXRsUWxqZnZyZjhVCldraDdIY04zUEFYZ0YrV3J4OWJ1SUxyWURkS0p1VWFwRmVPS2VwamxuMjlZdGppQ2tGZTNBb0dCQUxBWjRheEsKVDlxOFAwV2h4eWxpSjZyV2hLWXVrbHdwcVpvNUEzcVZVT3R6MlgwU2IwcWtnYmd0dlRLbDJIWUlRdGFiRHU4YgpBQmFrSHUzM3g0TzNoeDU0YjNwaytXaDlLakZlYnNLaGxZRjM3ODdrMmdER3REVGNSbXVJU2tjRHB0bDRsUVVUCi9vSnhEc3pCRmNrZTlOUWFnRm43WWExTDZzOUx2K25DMngvcEFvR0FITmtPNU4xcStqRlcxcHpFQmV2MVpoM3YKNnJRaXR5L3ZZbXZTMUJVSktCNmtibU5xTlV6czVhaFpZWk82Q0R6a3ZuQUx2OU1UZTRmR1N0ZU1Bc0FkWlpzegp1b2N0YlFic3d5UUR1QVFDS1I3dFc2TWJOLzNMWjZqTjdoNTVwTXJzYjM4bDB1MnpPTGhsU2E1K2FJOG00QWtDCjlUdzZGS2xva29HY0ZYbHRjNk1DZ1lBT1IwbW1MNG52SkFVaFVrNXJJNkpaOWJlNmNucVIyZDFSc1poL2o1RHcKZndQTDN1WnQxZnl1RVl2aGd4R05CNWEzZEZzb0pNaW40OHNvRFN2YVAxQWxFSzhYd3Y5M0xMNDdXcThJM0t0QgoyVXJMbGdQV2pLYlQyb0pBRWZndlJYdzdKWFBkMFRCUHcvcEg4L3JZOUt3Uk1wVEpCb3RoRS81SUtMeUlrMEl6CkJRS0JnUUM5eGxhVHh3VTdYK1JqUEJRek5WS3FPeWswOXhWcy9mZ1pJcEh4UWJrakRaZ292Tk02VFRjaVZxUFEKTTgxTUxkZTlKVTZSLzZvOVdHbHE1WFRrUzhqeklrd1ppdi9jL2ZoOFFBUGNjdllUY1FTWkNKcXltZTN6UXc0bwp5QlVCMWpGZnlMZllKRDBmcUI4QzRrcWlISmNwU1Q4WjkxUHo5cmw5bVNtU2JKeWRtZz09Ci0tLS0tRU5EIFJTQSBQUklWQVRFIEtFWS0tLS0tIA=='
+      - step:
+          name: Run deploy script
+          script:
+            - echo "$DEPLOY_SSH_PRIVATE_KEY" | base64 -d >> deploy_ssh_private_key.ppk
+            - chmod 600 deploy_ssh_private_key.ppk
+            - ssh deployer@46.101.247.215 -i deploy_ssh_private_key.ppk chmod 711 /www/upload/deploy_prod.sh
+            - ssh deployer@46.101.247.215 -i deploy_ssh_private_key.ppk bash /www/upload/deploy_prod.sh
+            - rm deploy_ssh_private_key.ppk

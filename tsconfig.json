@@ -1,0 +1,27 @@
+{
+  "version": "1.7.5",
+  "compilerOptions": {
+    "target": "es5",
+    "module": "commonjs",
+    "moduleResolution" : "node",
+    "sourceMap": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "skipLibCheck": true,
+    "removeComments": true,
+    "alwaysStrict": true,
+    "noUnusedLocals": true,
+    "noImplicitReturns": true,
+    "allowUnreachableCode": false,
+    "allowUnusedLabels": false,
+    "strictBindCallApply": true,
+    "outDir": "build",
+    "rootDir": "./"
+  },
+  "exclude": [
+    "node_modules",
+    "client",
+    "docs/",
+    "src/**/*.spec.ts" 
+  ]
+}

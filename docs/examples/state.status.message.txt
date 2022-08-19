@@ -1,0 +1,22 @@
+{
+  "meta": {
+    "requestId": "1122-2212323132-2113",
+    "uid": "11:22:33:44"
+  },
+  "data": {
+    "status": {
+      "errorCode": "11001",
+      "errorReason": "No wifi connection established",
+      "status": "FAILURE",
+      "online": true,
+      "busy": true
+    },
+    "traits": [{
+      "name": "trait1",
+      "value": "111"
+    }, {
+      "name": "trait2",
+      "value": "222"
+    }]
+  }
+}
